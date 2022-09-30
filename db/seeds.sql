@@ -26,16 +26,16 @@ VALUES  ('Pres', 500000.00, 1),
 
 
 
--- INSERT INTO `employee` (first_name, last_name, role_id, manager_id)
--- VALUES  ("John", "Smith", 1, NULL),
---         ("Sanaya", "Murillo", 2, 1),
---         ("Josef", "Wilkinson", 4, 2),
---         ("Lilly", "Dotson", 3, 2),
---         ("Connor", "Goodwin", 5, 1),
---         ("Izabella", "Steele", 6, 5),
---         ("Reece", "Graves", 8, 1),
---         ("Zhane", "Wang", 9, 8),
---         ("Jeanne", "Green", 7, 11),
---         ("Toby", "Martin", 7, 11),
---         ("Noah", "Rudd", 10, 6),
---         ("Lilian", "Dillon", 6, 5);
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
+VALUES  ("John", "Smith", 1, NULL),
+        ("Sanaya", "Murillo", 2, 1),
+        ("Josef", "Wilkinson", 4, 2),
+        ("Lilly", "Dotson", 3, 2),
+        ("Connor", "Goodwin", 5, 1),
+        ("Izabella", "Steele", 6, 5),
+        ("Reece", "Graves", 8, 1),
+        ("Zhane", "Wang", 9, 8),
+        ("Jeanne", "Green", 7, 11),
+        ("Toby", "Martin", 7, 11),
+        ("Noah", "Rudd", 10, 6),
+        ("Lilian", "Dillon", 6, 5);
