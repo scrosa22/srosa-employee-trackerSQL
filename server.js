@@ -41,32 +41,32 @@ const startPrompt = [
 ];
 
 const startApp = () => {
-  inquirer.prompt(startPrompt).then((response) => {
-    if (response.choice == "View All Departments") {
-      viewDepartments();
-    } else if (response.choice == "View All Roles") {
-      viewRoles();
-    } else if (response.choice == "View All Employees") {
-      viewEmployees();
-    } else if (response.choice == "Exit") {
-      exitApp();
+  inquirer.prompt(startPrompt)
+  .then((response) => {
+    console.log(response)
+    if (response == "View All Departments") {
+      viewDepartments
+    } else if (response == "View All Roles") {
+      viewRoles
+    } else if (response == "View All Employees") {
+      viewEmployees
+    } else if (response == "Exit") {
+      exitApp
     }
   });
 }
 
 const  viewDepartments = () => {
-  const sql = `
-  SELECT * 
-  FROM department;`;
+  const sql = 'SELECT * FROM department;';
 
-  db.query(sql, (err, res) => {
+  db.query(sql, (err, response) => {
     if (err) {
       throw err;
     }
 
-    console.log("hit app", table);
+    console.log("hit app", response);
 
-    console.table(res);
+    console.table({response});
 
 
     return startApp()
