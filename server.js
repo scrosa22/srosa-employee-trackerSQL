@@ -2,7 +2,7 @@ const inquirer = require("inquirer");
 const express = require("express");
 const mysql = require("mysql2");
 const { response } = require("express");
-const consoleTable = import('console.table');
+const consoleTable = require('console.table');
 
 
 const PORT = process.env.PORT || 3001;
@@ -47,7 +47,7 @@ const startApp = () => {
     } else if (response.choice == "View All Roles") {
       viewRoles();
     } else if (response.choice == "View All Employees") {
-      viewRoles();
+      viewEmployees();
     } else if (response.choice == "Exit") {
       exitApp();
     }

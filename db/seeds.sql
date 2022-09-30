@@ -7,17 +7,19 @@ VALUES ("Management"),
        ("Sales"),
        ("Marketing");
 
-INSERT INTO roles (title, salary, department_id)
-VALUES  ("Pres.", 500000, 1),
-        -- ("CFO", 250000, 1),
-        -- ("Sr Accountant", 150000, 2),
-        -- ("Jr Accountant", 75000, 2),
-        -- ("HR Manager", 150000, 3),
-        -- ("HR Rep", 50000, 3),
-        -- ("Sales Rep", 50000, 4),
-        -- ("Marketing Manager", 100000, 5),
-        -- ("Marketing Rep", 50000, 5),
-        -- ("Sales Manager", 100000, 4),
+
+
+INSERT INTO roles (`title`, `salary`, `department_id`)
+VALUES  ('Pres', 500000.00, 1),
+        ('CFO', 250000.00, 1),
+        ('Sr Accountant', 150000.00, 2),
+        ('Jr Accountant', 75000.00, 2),
+        ('HR Manager', 150000.00, 3),
+        ('HR Rep', 50000.00, 3),
+        ('Sales Rep', 50000.00, 4),
+        ('Marketing Manager', 100000.00, 5),
+        ('Marketing Rep', 50000.00, 5),
+        ('Sales Manager', 100000.00, 4);
 
 
 
