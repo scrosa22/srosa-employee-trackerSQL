@@ -79,6 +79,23 @@ function viewRoles() {
   });
 }
 
+function viewEmployees() {
+  const sql = `
+  SELECT employee.id, first_name, last_name, roles.title AS "title", department.name AS "department name", salary, manager_id
+  FROM employee
+  JOIN roles
+  ON role_id = roles.id
+  JOIN department
+  ON department_id = department.id;`;
+
+  db.query(sql, (err, response) => {
+    if (err) throw err;
+
+    console.table(response);
+    startApp();
+  });
+}
+
 const exitApp = () => {
   console.log("Thank you, goodbye!");
   process.exit();
