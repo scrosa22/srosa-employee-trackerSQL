@@ -1,16 +1,11 @@
 const inquirer = require("inquirer");
 const express = require("express");
 const mysql = require("mysql2");
-const { response } = require("express");
-const consoleTable = require('console.table');
+const consoleTable = require("console.table");
 
-
-const PORT = process.env.PORT || 3001;
 const app = express();
 
-// Express middleware
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+const PORT = process.env.PORT || 3001;
 
 const db = mysql.createConnection({
   host: "localhost",
@@ -28,7 +23,7 @@ db.connect(function (err) {
 
 const startPrompt = [
   {
-    name: "init",
+    name: "start",
     type: "list",
     message: "What action would you like to do?",
     choices: [
@@ -41,132 +36,53 @@ const startPrompt = [
 ];
 
 const startApp = () => {
-  inquirer.prompt(startPrompt)
-  .then((response) => {
-    console.log(response)
-    if (response == "View All Departments") {
-      viewDepartments
-    } else if (response == "View All Roles") {
-      viewRoles
-    } else if (response == "View All Employees") {
-      viewEmployees
-    } else if (response == "Exit") {
-      exitApp
+  inquirer.prompt(startPrompt).then((results) => {
+    
+    if (results.start == `View All Departments`) {
+      viewDepartments();
+    } else if (results.start == "View All Roles") {
+      viewRoles();
+    } else if (results.start == "View All Employees") {
+      viewEmployees();
+    } else if (results.start == "Exit") {
+      exitApp();
     }
   });
-}
+};
 
-const  viewDepartments = () => {
-  const sql = 'SELECT * FROM department;';
+function viewDepartments() {
+  const sql = "SELECT * FROM department;";
 
   db.query(sql, (err, response) => {
     if (err) {
       throw err;
     }
 
-    console.log("hit app", response);
+    console.table(response);
 
-    console.table({response});
-
-
-    return startApp()
+   startApp();
   });
 }
 
-const viewRoles = () => {
+function viewRoles() {
   const sql = `
   SELECT roles.id, title, salary, department.name AS "department name"
   FROM roles
   JOIN department
   ON department_id = department.id;`;
 
-  db.query(sql, (err, data) => {
+  db.query(sql, (err, response) => {
     if (err) throw err;
 
-    console.table(data);
+    console.table(response);
     startApp();
   });
 }
 
 const exitApp = () => {
-  console.log('Thank you, goodbye!')
-  process.exit()
-}
-
-// // Read all movies
-// app.get('/api/movies', (req, res) => {
-//   const sql = `SELECT id, movie_name AS title FROM movies`;
-
-//   db.query(sql, (err, rows) => {
-//     if (err) {
-//       res.status(500).json({ error: err.message });
-//        return;
-//     }
-//     res.json({
-//       message: 'success',
-//       data: rows
-//     });
-//   });
-// });
-
-// // Delete a movie
-// app.delete('/api/movie/:id', (req, res) => {
-//   const sql = `DELETE FROM movies WHERE id = ?`;
-//   const params = [req.params.id];
-
-//   db.query(sql, params, (err, result) => {
-//     if (err) {
-//       res.statusMessage(400).json({ error: res.message });
-//     } else if (!result.affectedRows) {
-//       res.json({
-//       message: 'Movie not found'
-//       });
-//     } else {
-//       res.json({
-//         message: 'deleted',
-//         changes: result.affectedRows,
-//         id: req.params.id
-//       });
-//     }
-//   });
-// });
-
-// // Read list of all reviews and associated movie name using LEFT JOIN
-// app.get('/api/movie-reviews', (req, res) => {
-//   const sql = `SELECT movies.movie_name AS movie, reviews.review FROM reviews LEFT JOIN movies ON reviews.movie_id = movies.id ORDER BY movies.movie_name;`;
-//   db.query(sql, (err, rows) => {
-//     if (err) {
-//       res.status(500).json({ error: err.message });
-//       return;
-//     }
-//     res.json({
-//       message: 'success',
-//       data: rows
-//     });
-//   });
-// });
-
-// // BONUS: Update review name
-// app.put('/api/review/:id', (req, res) => {
-//   const sql = `UPDATE reviews SET review = ? WHERE id = ?`;
-//   const params = [req.body.review, req.params.id];
-
-//   db.query(sql, params, (err, result) => {
-//     if (err) {
-//       res.status(400).json({ error: err.message });
-//     } else if (!result.affectedRows) {
-//       res.json({
-//         message: 'Movie not found'
-//       });
-//     } else {
-//       res.json({
-//         message: 'success',
-//         data: req.body,
-//         changes: result.affectedRows
-//       });
-//     }
-//   });
-// });
+  console.log("Thank you, goodbye!");
+  process.exit();
+};
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
